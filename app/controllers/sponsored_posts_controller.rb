@@ -1,11 +1,10 @@
- class PostsController < ApplicationController
- 
+class SponsoredPostsController < ApplicationController
    def show
  # #19
      @post = Post.find(params[:id])
    end
 
-   def new
+   def new 
      @topic = Topic.find(params[:topic_id])
      @post = Post.new
    end
@@ -65,4 +64,4 @@
        render :show
      end
    end
- end
+end

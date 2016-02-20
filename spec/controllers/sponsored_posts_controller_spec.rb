@@ -1,18 +1,25 @@
-RSpec.describe SponsoredPost, type: :model do
-  let(:topic) {Topic.create!(name: RandomData.random_sentence,description: RandomData.random_paragraph)}
-  let(:sponsored_post) { topic.sponsored_posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: 99) }
-  it { should belong_to(:topic) }
+require 'rails_helper'
+require 'random_data'
+include RandomData
 
-  describe "attributes" do
+RSpec.describe SponsoredPostsController, type: :controller do
+  let (:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
+  let (:my_sponsored_post) { my_topic.sponsored_posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: 5)}
 
-    it "should respond  to title" do
-      expect(sponsored_post).to respond_to(:title)
+  describe "GET show" do
+    it "returns http success" do
+      get :show, topic_id: my_topic.id, id: my_sponsored_post.id
+      expect(response).to have_http_status(:success)
     end
-    it "should respond to body" do
-      expect(sponsored_post).to respond_to(:body)
+
+    it "renders the #show view" do
+      get :show, topic_id: my_topic.id, id: my_sponsored_post.id
+      expect(response).to render_template :show
     end
-    it "should respond to price" do
-      expect(sponsored_post).to respond_to(:price)
+
+    it "assigns my_sponsored_post to @sponsoredpost" do
+      get :show, topic_id: my_topic.id, id: my_sponsored_post.id
+      expect(assigns(:sponsored_post)).to eq(my_sponsored_post)
     end
   end
 end

@@ -1,14 +1,14 @@
 require "random_data"
 # Create Posts
-
-10.times do
-   SponsoredPost.create!(
-     title: RandomData.random_sentence,
-     body:  RandomData.random_paragraph,
-     price: 8
-)
+5.times do
+   User.create!(
+ # #3
+   name:     RandomData.random_name,
+   email:    RandomData.random_email,
+   password: RandomData.random_sentence
+   )
 end
-sponsered_posts = SponsoredPost.all
+users = User.all
 
 
 15.times do
@@ -22,6 +22,7 @@ topics = Topic.all
 50.times do
 # #1
     Post.create!(
+     user:   users.sample,
 # #2
      topic:  topics.sample,
      title:  RandomData.random_sentence,
@@ -49,10 +50,17 @@ end
     )
 end
 
+user = User.first
+user.update_attributes!(
+   email: 'bmt49@zips.uakron.edu',
+   password: 'helloworld'
+)
+
 
 
 
 puts "Seed finished"
+puts "#{User.count} users created"
 puts "#{SponsoredPost.count} sponsored posts created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"

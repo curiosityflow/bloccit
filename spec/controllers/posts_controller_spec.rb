@@ -4,9 +4,9 @@ include SessionsHelper
 RSpec.describe PostsController, type: :controller do
    let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
   
-   let(:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
+   let(:my_topic) { Topic.create!(name:  Random.sentence, description: Random.paragraph) }
  # #13
-   let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
+   let(:my_post) { my_topic.posts.create!(title: Random.sentence, body: Random.paragraph, user: my_user) }
 
    context "guest user" do
  # #6
@@ -38,7 +38,7 @@ RSpec.describe PostsController, type: :controller do
  
      describe "POST create" do
        it "returns http redirect" do
-         post :create, topic_id: my_topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+         post :create, topic_id: my_topic.id, post: {title: Random.sentence, body: Random.paragraph}
          expect(response).to redirect_to(new_session_path)
        end
      end
@@ -52,8 +52,8 @@ RSpec.describe PostsController, type: :controller do
  
      describe "PUT update" do
        it "returns http redirect" do
-         new_title = RandomData.random_sentence
-         new_body = RandomData.random_paragraph
+         new_title = Random.sentence
+         new_body = Random.paragraph
  
          put :update, topic_id: my_topic.id, id: my_post.id, post: {title: new_title, body: new_body}
          expect(response).to redirect_to(new_session_path)
@@ -118,18 +118,18 @@ RSpec.describe PostsController, type: :controller do
     describe "POST create" do
  # #4
       it "increases the number of Post by 1" do
-        expect{post :create, topic_id: my_topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}}.to change(Post,:count).by(1)
+        expect{post :create, topic_id: my_topic.id, post: {title: Random.sentence, body: Random.paragraph}}.to change(Post,:count).by(1)
       end
  
  # #5
       it "assigns the new post to @post" do
-       post :create, topic_id: my_topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+       post :create, topic_id: my_topic.id, post: {title: Random.sentence, body: Random.paragraph}
        expect(assigns(:post)).to eq Post.last
       end
  
  # #6
       it "redirects to the new post" do
-        post :create, topic_id: my_topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+        post :create, topic_id: my_topic.id, post: {title: Random.sentence, body: Random.paragraph}
  # #24 
         expect(response).to redirect_to [my_topic, Post.last]
       end
@@ -160,8 +160,8 @@ RSpec.describe PostsController, type: :controller do
    end
    describe "PUT update" do
      it "updates post with expected attributes" do
-       new_title = RandomData.random_sentence
-       new_body = RandomData.random_paragraph
+       new_title = Random.sentence
+       new_body = Random.paragraph
  
        put :update, topic_id: my_topic.id, id: my_post.id, post: {title: new_title, body: new_body}
  
@@ -173,8 +173,8 @@ RSpec.describe PostsController, type: :controller do
      end
  
      it "redirects to the updated post" do
-       new_title = RandomData.random_sentence
-       new_body = RandomData.random_paragraph
+       new_title = Random.sentence
+       new_body = Random.paragraph
  
  # #4
        put :update, topic_id: my_topic.id, id: my_post.id, post: {title: new_title, body: new_body}

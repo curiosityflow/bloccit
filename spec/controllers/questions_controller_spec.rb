@@ -5,8 +5,8 @@ RSpec.describe QuestionsController, type: :controller do
   let(:my_question) do
     Question.create(
       id: 1,
-      title: RandomData.random_sentence,
-      body: RandomData.random_paragraph,
+      title: Random.sentence,
+      body: Random.paragraph,
       resolved: false
       
     )
@@ -73,8 +73,8 @@ RSpec.describe QuestionsController, type: :controller do
   
   describe "PUT update" do
     it "updates question with expected attributes" do
-      new_title = RandomData.random_sentence
-      new_body = RandomData.random_paragraph
+      new_title = Random.sentence
+      new_body = Random.paragraph
       
       put :update, id: my_question.id, question: {title: new_title, body: new_body, resolved: false}
       updated_question = assigns(:question)
@@ -84,8 +84,8 @@ RSpec.describe QuestionsController, type: :controller do
     end
     
     it "redirects to the updated question" do
-      new_title = RandomData.random_sentence
-      new_body = RandomData.random_paragraph
+      new_title = Random.sentence
+      new_body = Random.paragraph
       
       put :update, id: my_question.id, question: {title: new_title, body: new_body, resolved: true}
       expect(response).to redirect_to my_question
@@ -103,4 +103,4 @@ RSpec.describe QuestionsController, type: :controller do
        expect(response).to redirect_to questions_path
      end
   end
-end
+

@@ -32,7 +32,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'bootstrap-sass'
 gem 'bcrypt'
-gem 'random_data'
+gem 'faker'
 
 
 # Refactor RandomData to the Random (random_data)

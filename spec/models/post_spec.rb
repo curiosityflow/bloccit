@@ -7,6 +7,8 @@ RSpec.describe Post, type: :model do
  # #4
    let(:post) { topic.posts.create!(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user: user) }
 
+   
+   it { is_expected.to have_many(:comments) }
    it { is_expected.to belong_to(:topic) }
 
    it { is_expected.to validate_presence_of(:title) }

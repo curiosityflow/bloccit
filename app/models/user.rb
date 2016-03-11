@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
    before_save { self.role ||= :member }
    
    has_many :posts
+   has_many :comments
  # #3
    EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -21,7 +22,7 @@ class User < ActiveRecord::Base
 
  # #7
    has_secure_password
-   enum role: [:member, :admin]
+   enum role: [:member, :admin, :moderator]
    
    def format_name
        if name

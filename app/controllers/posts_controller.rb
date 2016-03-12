@@ -3,7 +3,7 @@
    before_action :authorize_user, except: [:show, :new, :create]
  
    def show
- # #19
+
      @post = Post.find(params[:id])
    end
 
@@ -19,13 +19,14 @@
    def create
    
      @topic = Topic.find(params[:topic_id])
- # #35
+ 
      @post = @topic.posts.build(post_params)
      @post.user = current_user
 
      if @post.save
+       @post.labels = Label.update_labels(params[:post][:labels])
        flash[:notice] = "Post was saved."
- # #36
+
     
        redirect_to [@topic, @post]
      else
@@ -42,6 +43,7 @@
      @post = Post.find(params[:id])
      @post.assign_attributes(post_params)
      if @post.save
+       @post.labels = Label.update_labels(params[:post][:labels])
        flash[:notice] = "Post was updated."
  # #37
      

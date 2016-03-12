@@ -8,8 +8,9 @@ RSpec.describe Topic, type: :model do
      it { should validate_length_of(:description).is_at_least(15) }
      it { should validate_presence_of(:name)}
      it { should validate_presence_of(:description)}
+     it { is_expected.to have_many(:labelings) }
+     it { is_expected.to have_many(:labels).through(:labelings) }
 
- # #1
    describe "attributes" do
      it "responds to name" do
        expect(topic).to respond_to(:name)
@@ -23,7 +24,7 @@ RSpec.describe Topic, type: :model do
        expect(topic).to respond_to(:public)
      end
 
- # #2
+
      it "is public by default" do
        expect(topic.public).to be(true)
      end

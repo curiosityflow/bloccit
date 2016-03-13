@@ -3,8 +3,9 @@ class User < ActiveRecord::Base
    before_save :format_name
    before_save { self.role ||= :member }
    
-   has_many :posts
-   has_many :comments
+   has_many :posts, dependent: :destroy
+   has_many :comments, dependent: :destroy
+   has_many :votes, dependent: :destroy
  # #3
    EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

@@ -23,13 +23,13 @@ RSpec.describe UsersController, type: :controller do
     end
 
     describe "POST create" do
-     xit "returns an http redirect" do
+     it "returns an http redirect" do
        post :create, user: new_user_attributes
        expect(response).to have_http_status(:redirect)
      end
 
  # #4
-     xit "creates a new user" do
+     it "creates a new user" do
        expect{
          post :create, user: new_user_attributes
        }.to change(User, :count).by(1)
@@ -63,5 +63,22 @@ RSpec.describe UsersController, type: :controller do
        post :create, user: new_user_attributes
        expect(session[:user_id]).to eq assigns(:user).id
      end
+   end
+   
+   describe "not signed in" do
+       let(:factory_user) {create(:user)}
+       before do
+           post :create, user: new_user_attributes
+       end
+       
+       it "returns http success" do
+           get :show, {id: factory_user.id}
+           expect(response).to render_template :show
+       end
+       
+       it "assigns factory_user to @user" do
+           get :show, {id: factory_user.id}
+           expect(assigns(:user)).to eq(factory_user)
+       end
    end
 end

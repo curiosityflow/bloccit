@@ -36,7 +36,7 @@ RSpec.describe Topic, type: :model do
        @public_topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)
        @private_topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph, public: false)
      end
-    
+ 
  
      describe "visible_to(user)" do
        it "returns all topics if the user is present" do
@@ -51,5 +51,5 @@ RSpec.describe Topic, type: :model do
        end
      end
    end
->>>>>>> feature-privatetopics-checkpoint
+
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TopicsController, type: :controller do
-   let(:my_topic) { Topic.create!(name: Faker::Lorem.sentence, description: Faker::Lorem.paragraph) }
+   let(:my_topic) { create(:topic) }
    let(:my_private_topic) { create(:topic, public: false) }
    describe "GET index" do
        

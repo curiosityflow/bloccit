@@ -3,11 +3,11 @@ include SessionsHelper
 include Faker
 
 RSpec.describe PostsController, type: :controller do
-   let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
+   let(:my_topic) { create(:topic) }
+   let(:my_user) { create(:user) }
+   let(:other_user) { create(:user) }
+   let(:my_post) { create(:post, topic: my_topic, user: my_user) }
 
-   let(:my_topic) { Topic.create!(name:  Faker::Lorem.characters(15), description: Faker::Lorem.characters(15)) }
- # #13
-   let(:my_post) { my_topic.posts.create!(title: Faker::Lorem.characters(15), body: Faker::Lorem.paragraph(2), user: my_user) }
 
    context "guest user" do
  # #6

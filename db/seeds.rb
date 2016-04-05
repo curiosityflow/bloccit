@@ -1,4 +1,5 @@
 require "random_data"
+
 # Create Posts
 5.times do
    User.create!(
@@ -28,7 +29,7 @@ topics = Topic.all
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph
    )
-    
+
    post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
 
    rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
@@ -61,7 +62,7 @@ admin = User.create!(
    password: 'helloworld',
    role:     'admin'
 )
- 
+
 
 member = User.create!(
    name:     'Member User',

@@ -4,7 +4,8 @@ class Api::V1::PostsController < Api::V1::BaseController
    before_action :authorize_user, except: [:index, :show]
  
    def index
-     posts = Post.all
+     topic = Topic.find(params[:topic_id])       
+     posts = topic.posts.all
      render json: posts, status: 200
    end
  
@@ -24,7 +25,10 @@ class Api::V1::PostsController < Api::V1::BaseController
    end
  
    def create
-     post = Post.new(post_params)
+     topic = Topic.find(params[:topic_id])
+ 
+     post = topic.posts.build(post_params)
+     post.user = current_user
  
      if post.valid?
        post.save!
@@ -46,6 +50,6 @@ class Api::V1::PostsController < Api::V1::BaseController
    
    private
    def post_params
-     params.require(:post).permit(:name, :description, :public)
+     params.require(:post).permit(:title, :body)
    end
 end
